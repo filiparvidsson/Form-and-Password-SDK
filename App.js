@@ -1,11 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+// import the form component
+import CompiledForm from './form-sdk/compiledForm';
+
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    {/* render the form component with a few children */}
+      <CompiledForm>
+        <Text>text</Text>
+        <Text>email</Text>
+        <Text>password</Text>
+      </CompiledForm>
+
+
+        
+      
     </View>
   );
 }
