@@ -30,13 +30,21 @@ export default function FormField(props) {
 
     // access the text written in the rendered text input and check if it is filled out
     const checkFilled = (text) => {
-        if (text.length > 0) {
+        if (text.length > 0 && !filled) {
             setFilled(true);
-        } else {
+            console.log("filled")
+        } else if (text.length === 0 && filled) {
             setFilled(false);
+            console.log("empty")
         }
+        
     }
-  
+
+    // call the props.onchange function when the filled state changes
+    useEffect(() => {
+        props.onChange(filled);
+    }, [filled]);
+
     // a function which extracts the string from the title
     const extractString = (title) => {
         return title.props.children;
@@ -48,9 +56,6 @@ export default function FormField(props) {
             <Text style={styles.title}>{extractString(props.title)}</Text>
             <TextInput
              /* change the style depending on the title*/
-             /*if the input is in the hiddenTypesArray make it secureTextEntry */
-             /*if the input is in the selectTypesArray make it a picker */
-             /*if the input is in the textTypesArray make it a text input */
                 style={
                     textInputTypes.includes(extractString(props.title)) ? styles.textInput : null ||
                     selectInputTypes.includes(extractString(props.title)) ? styles.selectInput : null ||

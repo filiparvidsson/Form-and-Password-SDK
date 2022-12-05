@@ -25,57 +25,74 @@ export default function CompiledForm(props) {
     // a state which keeps track of how many form fields are required
     const [requiredFields, setRequiredFields] = React.useState(0);
 
-    // count the number of children that has the filled state set to true
-    const countFilledFields = () => {
-        let count = 0;
-
-        // filter out the number of children that has the filled state set to true
-        React.Children.map(props.children, (child) => {
-            if (child.filled) {
-                count++;
-            }
-        });
-
-        console.log(count);
-
+    // a function which sets all states to their initial values
+    const resetForm = () => {
+        setFormData({});
+        setFilledFields(0);
+        setRequiredFields(0);
     }
 
-    // call the countFilledFields function when the formfield component typed in the children is updated
+    // a function which calles the reset state and empties all the forms when the page loads for the first time
     useEffect(() => {
-        countFilledFields();
-    }, [props.children]);
+        resetForm();
+    }, []);
 
+
+    // a function which checks if the form is filled out as is to be passed to the child and updates the filledFields state
+    const checkFilled = (filled) => {
+        // only run if the filled state has changed
+        if (filled) {
+            // increment the filledFields state
+            setFilledFields(filledFields + 1);
+            console.log("added");
+        } else {
+            // decrement the filledFields state
+            setFilledFields(filledFields - 1);
+            console.log("removed");
+        }
+
+        console.log(filledFields);
+    }
+
+    const countRequiredFields = () => {
+        // set the state of the required fields
+        setRequiredFields(props.children.length);
+    }
 
     // use the useeffect to keep track of the number of required fields and the number of filled fields
     useEffect(() => {
         // a function which counts the number of required fields
-        const countRequiredFields = () => {
-            // set the state of the required fields
-            setRequiredFields(props.children.length);
-        }
         // call the function
         countRequiredFields(); 
     
         // update when the childrens filled state changes
-    }, []);
+    }, [filledFields]);
 
 
     return (
         <View style={styles.container}>
-            <ProgressBar filledFields={5} requiredFields={10} />
+            <ProgressBar current={filledFields} total={requiredFields} />
             
             {React.Children.map(props.children, (child) => {  
                     return (
                         <FormField title={child}
 
-
+                        // update compiledform when the formfield by paasing countFilledFields as a prop
+                        onChange={checkFilled}
                          />
                     );
                 
             })}
 
             {/* a button that calls the countfilled fields */}
-            <Text onPress={() => countFilledFields()}>Count filled fields</Text>
+            <Text
+                // set number of filled fields to 0
+                onPress={() => {
+                    setFilledFields(0);
+                }}
+             >
+             Set number of fileds to zero
+             </Text>
         </View>
     );
     
