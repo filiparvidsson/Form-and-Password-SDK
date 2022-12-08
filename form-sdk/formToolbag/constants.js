@@ -58,6 +58,10 @@ export const COLORS = {
     QUATERNARY: '#00FF00',
     QUINTERNARY: '#0000FF',
     GRAY: '#808080',
+    RED: '#FF0000',
+    GREEN: '#00FF00',
+    BLUE: '#0000FF',
+    YELLOW: '#FFFF00',
 }
 
 // Different opacities
@@ -73,5 +77,6 @@ export const ALIGN = {
     LEFT: 'left',
     RIGHT: 'right',
     ABSOLUTE: 'absolute',
+    ROW: 'row',
 }
 

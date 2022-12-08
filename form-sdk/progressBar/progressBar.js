@@ -56,7 +56,7 @@ export default function ProgressBar(props) {
         container: {
             width: PROGRESS_BAR_DIMENSIONS.WIDTH_FULL,
             height: PROGRESS_BAR_DIMENSIONS.LARGE_HEIGHT,
-            backgroundColor: COLORS.PRIMARY,
+            backgroundColor: COLORS.SECONDARY,
             alignItems: ALIGN.CENTER,
             justifyContent: ALIGN.CENTER,
             position: ALIGN.ABSOLUTE,
